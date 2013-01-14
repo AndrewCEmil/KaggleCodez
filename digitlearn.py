@@ -1,6 +1,7 @@
 import logging
 
-logger = loggig.getLogger('training logger')
+logging.basicConfig(filename='trainer.log',level=logging.DEBUG)
+logger = logging.getLogger('training logger')
 mind = {}
 
 def train(filename):
@@ -10,19 +11,25 @@ def train(filename):
     linecount = 0
     valcount = 0
     logger.info('train about to start looping over training lines')   
-    for line in file.read_lines():
-        vals = line.split(',')
-        if linecount == 0:
-            #if we are on the first iteration dont count, just generate dict
-            for val in vals:
-                mind[valcount] = 0
-                valcount += 1
-        else:
-            for val in vals:
-                newmindval = mind[i] * (linecount - 1)
-                newavg = (newmindval + curval) / linecount
-                mind[
-            #mind i is now (mind[i] * (count - 1) + curval) /count 
-
+    for line in file.readlines():
+        if linecount >= 0:
+            vals = line.split(',')
+            target = val[0]
+            if target not in mind.keys():
+                logger.debug('got new target: ' + target)
+                mind[target] = {}
+            logger.info('looping over vals')
+            for i in range(1,784):
+                if i not in mind[target].keys():
+                    mind[target][i] = 0
+                newmindval = mind[target][i] * (linecount)
+                newavg = (newmindval + vals[i]) / (linecount + 1)
+                mind[target][i] = newavg
         linecount += 1
-            
+        logger.debug('finished another line')
+
+    logger.debug('DONE')
+    logger.debug(str(mind))
+    print mind
+
+train('./train.csv')
