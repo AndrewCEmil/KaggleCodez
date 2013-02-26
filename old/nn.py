@@ -8,10 +8,10 @@ from pybrain.datasets.classification import ClassificationDataSet
 from numpy import genfromtxt, savetxt
 import logging
 
-basepath = '/home/ace/kaggle/digitrec'
-logging.basicConfig(filename=basepath + '/nuralnet.log',level=logging.DEBUG)
+logging.basicConfig(filename='nuralnet.log',level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
 logger = logging.getLogger('NeuralNet')
 
+basepath = '.'
 def main():
     logger.debug('starting')
     print 'starting'
@@ -25,7 +25,7 @@ def main():
     print 'building dataset'
     cds = ClassificationDataSet(784, target=10, nb_classes=10)
     for i in range(len(target)):
-        targetvec = [0 for i in range(10)]
+        targetvec = [0 for j in range(10)]
         targetnum = float(target[i])
         targetvec[int(float(target[i]))] = 1
         cds.addSample(train[i], targetvec)
