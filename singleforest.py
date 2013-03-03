@@ -4,6 +4,7 @@ from numpy import genfromtxt, savetxt, array
 from collections import Counter
 import logging
 import csv
+import pickle
 
 logging.basicConfig(filename='RFC.log',level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
 logger = logging.getLogger('RFC')
@@ -34,7 +35,8 @@ def main():
     results = []
     logger.debug("About to fit RFC")
     forest = rf.fit(train, target)
-    logger.debug('doing real results now')
+    logger.debug('pickling...')
+    pickle.dump(forest, open("singleforest.pkl", 'wb'))
     logger.debug('opening test file')
     #test = genfromtxt(open('test.csv','r'), delimiter=',', dtype='f8')[1:]
     csvtest = csv.reader(open('test.csv', 'r'))

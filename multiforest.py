@@ -4,7 +4,6 @@ from numpy import genfromtxt, savetxt, array
 from collections import Counter
 import logging
 import csv
-import logloss
 
 logging.basicConfig(filename='RFC.log',level=logging.DEBUG, format='%(asctime)s %(name)s %(levelname)s %(message)s')
 logger = logging.getLogger('RFC')
@@ -30,19 +29,22 @@ def main():
     logger.debug("About to create RFC")
     #create and train the random forest
     #multi-core CPUs can use: rf = RandomForestClassifier(n_estimators=100, n_jobs=2)
-    rf = RandomForestClassifier(n_estimators=100, n_jobs=2)
+    rf = RandomForestClassifier(n_estimators=1000, n_jobs=2)
 
     cv = cross_validation.KFold(len(train), n_folds=5)
 
     results = []
     forests = []
     logger.debug("About to fit RFC")
+    count = 0
     for traincv, testcv in cv:
         logger.debug("fitting")
         forest = rf.fit(train[traincv], target[traincv])
         cls = forest.predict(train[testcv])
         forests.append(forest)
         logger.debug("fit")
+        pickle.dump(forest, open('forest' + str(count) + '.pkl', 'wb'))
+        count += 1
         """
         logger.debug("resulting")
         good = 0
@@ -100,7 +102,9 @@ def main():
         result = counter.most_common()[0][0]
         print result
         results.append(result)
-    """
+        
+        """
+
     for i in range(len(datatest)):
         subresults = []
         logger.debug('doing prediction')
@@ -112,13 +116,13 @@ def main():
         result = counter.most_common()[0][0]
         print result
         results.append(result)
-    """
     logger.debug('done with prediction!')
     print results
+    """
     outstring = ''
     for res in results:
         outstring += str(res) + '\n'
-    outfile = open('submission.txt', 'w')
+    outfile = open('multisubmit1000.txt', 'w')
     outfile.write(outstring)
 
 if __name__=="__main__":
