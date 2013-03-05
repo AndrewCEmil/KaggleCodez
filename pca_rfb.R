@@ -7,12 +7,15 @@ labels <- as.factor(train[,1])
 train <- train[,-1]
 print(dim(train))
 print(typeof(train))
-print(names(train))
 
 fit <- princomp(train)
 for(i in 1:length(fit$sdev)) {
     if(fit$sdev[i] == 0) {
         train <- train[,-i] 
+        test <- test[,-1]
+    }
+}
+
 
 print(dim(train))
 
