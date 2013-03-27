@@ -9,7 +9,7 @@ targets <- train[,"SalePrice"]
 #targets <- as.factor(train[,"SalePrice"])
 print(dim(train))
 print(dim(test))
-goodHeaders <- c("YearMade", "MachineID", "ModelID", "auctioneerID", "MachineHoursCurrentMeter")
+goodHeaders <- c("YearMade", "MachineID", "ModelID", "auctioneerID", "MachineHoursCurrentMeter", "Turbocharged", "Engine_Horsepower", "ProductGroup", "auctioneerID")
 realtrain <- train[,goodHeaders]
 realtest <- test[,goodHeaders]
 
@@ -32,4 +32,4 @@ rf2 <- randomForest(realtrain2, targs2, ntree=100)
 results <- predict(rf2, realtest)
 predictions <- results
 
-write(predictions, file="rfout.csv", ncolumns=1)
+write(predictions, file="sub2.csv", ncolumns=1)

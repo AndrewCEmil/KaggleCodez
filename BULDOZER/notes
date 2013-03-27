@@ -1,0 +1,22 @@
+Why don't we try extracting a few useful columns and just running it on that?
+
+Useful cols:
+    MachineID
+    YearMade
+    ModelID
+    auntioneerID
+    MachineHoursCurrentMeter
+___
+
+So I added more columns and ran it with
+    MachineID
+    YearMade
+    ModelID
+    auntioneerID
+    MachineHoursCurrentMeter
+    Turbocharged
+    Engine_Horsepower
+    ProductGroup
+    auctioneerID
+
+AND IT DID WAY WORSE WTF LOL
