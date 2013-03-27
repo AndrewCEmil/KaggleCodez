@@ -9,7 +9,7 @@ fit <- princomp(train)
 
 print(sum(sorted[1:420]))
 print(sum(sorted[420:length(sorted)]))
-print(dim(train))
+#print(dim(train))
 #realtrain <- train[names(sorted[420:length(sorted)])]
 #for(name in names(sorted[420:length(sorted)])) {
 #    train[,name] <- NULL
@@ -18,11 +18,11 @@ print(dim(train))
     #if sdev[i] < sorted[lim]
         #train[,i] <- null
 
-train <- train[420:length(train)]
-print(dim(train))
-print(dim(test))
-test <- test[420:length(test)]
-print(dim(test))
+#train <- train[420:length(train)]
+#print(dim(train))
+#print(dim(test))
+#test <- test[420:length(test)]
+#print(dim(test))
 #for(i in 1:length(fit$sdev)) {
 #    if(fit$sdev[i] <= sorted[420]) {
 #        train <- train[,-i]
