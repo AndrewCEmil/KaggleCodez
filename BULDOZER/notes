@@ -1,5 +1,7 @@
 Why don't we try extracting a few useful columns and just running it on that?
+also used all the data except the first 100k entries
 
+sub1.csv
 Useful cols:
     MachineID
     YearMade
@@ -8,6 +10,8 @@ Useful cols:
     MachineHoursCurrentMeter
 ___
 
+sub2.csv
+again without first 100k entries
 So I added more columns and ran it with
     MachineID
     YearMade
@@ -20,3 +24,6 @@ So I added more columns and ran it with
     auctioneerID
 
 AND IT DID WAY WORSE WTF LOL
+________
+
+Ran with the original columns, only 10 trees, but the entire dataset, generated sub3.csv, but still need to submit it
