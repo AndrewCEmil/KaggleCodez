@@ -27,3 +27,20 @@ AND IT DID WAY WORSE WTF LOL
 ________
 
 Ran with the original columns, only 10 trees, but the entire dataset, generated sub3.csv, but still need to submit it
+
+weeee did even better!
+
+________________________
+
+convert dates and add as feature
+as.Date(train[1,"saledate"], "%m/%d/%Y")
+#TODO add this to the YearMade column!
+
+worked! adding the column did a lot
+
+_____________________________
+
+Ran as above (subset of columns) but with 50 trees....did the same/worse wtf!
+_________________________
+
+trying to get year made as a date....
