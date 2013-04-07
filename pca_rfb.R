@@ -1,4 +1,7 @@
-library(randomForest)
+library("randomForest")
+library("foreach")
+library("doSNOW")
+registerDoSNOW(makeCluster(4, type="SOCK"))
 
 train <- read.csv("train.csv", header=TRUE)
 test <- read.csv("test.csv", header=TRUE)
@@ -18,7 +21,7 @@ print(sum(sorted[420:length(sorted)]))
     #if sdev[i] < sorted[lim]
         #train[,i] <- null
 
-#train <- train[420:length(train)]
+#train <- train[400:length(train)]
 #print(dim(train))
 #print(dim(test))
 #test <- test[420:length(test)]
@@ -31,7 +34,17 @@ print(sum(sorted[420:length(sorted)]))
 #    }
 #}
 
-rf <- randomForest(train, labels, xtest=test, ntree=1000)
-predictions <- levels(labels)[rf$test$predicted]
+#convert test to the new basis
+testm <- data.matrix(test)
+testmgood <- testm %*% fit$loadings
+print(dim(testmgood))
+print(typeof(fit$scores))
+print(typeof(testmgood))
+rf <- randomForest(fit$scores, labels, xtest=testmgood, ntree=1000)
+#rf <- foreach(ntree = rep(250,4), .combine = combine, .packages = "randomForest" %dopar% randomForest(fit$scores, labels, ntree=ntree))
+#predictions <- levels(labels)[rf$test$predicted]
+#predictions <- predict(rf,testmgood)
+print(typeof(predictions))
+print(dim(predictions))
 
-write(predictions, file="rf_pca.csv", ncolumns=1) 
+write(predictions, file="rf_pca2.csv", ncolumns=1) 
